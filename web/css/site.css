@@ -64,6 +64,27 @@ a.desc:after {
     color: rgba(255, 255, 255, 0.5);
 }
 
+/* Lucky Numbers */
+.table {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.table .float:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.table .float label, .table .float input {
+    display: block;
+}
+
+.table .float.submitter {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 @media(max-width:767px) {
     .nav li > form > button.logout {
         display:block;
