@@ -18,25 +18,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php
             Pjax::begin();
-            echo Html::beginForm(Url::to(['lucky-numbers/index']), 'POST', ['data-pjax' => 0]);
+            echo Html::beginForm(Url::to(['lucky-numbers/index']), 'POST', ['data-pjax' => 0, 'name' => 'l-numbers']);
         ?>
         <div class="table">
             <div class="float">
                 <?= Html::label('N - from', 'from'); ?>
-                <?= Html::input(
+                <?= Html::activeInput(
                     'number',
+                    $model,
                     'from',
-                    $data['from'] ?? null,
-                    ['min' => 0, 'max' => 999999, 'class' => 'form-control']
+                    ['class' => 'form-control']
                 ); ?>
             </div>
             <div class="float">
-                <?= Html::label('N - to', 'from'); ?>
-                <?= Html::input(
-                        'number',
-                        'to',
-                        $data['to'] ?? null,
-                        ['min' => 0, 'max' => 999999, 'class' => 'form-control']
+                <?= Html::label('N - to', 'to'); ?>
+                <?= Html::activeInput(
+                    'number',
+                    $model,
+                    'to',
+                    ['class' => 'form-control']
                 ); ?>
             </div>
             <div class="float submitter">
@@ -47,8 +47,18 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>
             <label>
                 <span><b>Number of tickets: </b></span>
-                <?php echo Html::tag('span', Html::encode($data['counter'] ?? null), ['class' => 'result', 'data-pjax' => 1]); ?>
+                <?php echo Html::tag('span', Html::encode($model->counter), ['class' => 'result', 'data-pjax' => 1]); ?>
             </label>
+        </p>
+
+        <p class="errors">
+            <?php
+            foreach ($model->errors ?? null as $key => $attribute) {
+                foreach ($attribute as $error) {
+                    echo Html::tag('span', $error);
+                }
+            }
+            ?>
         </p>
 
         <?php

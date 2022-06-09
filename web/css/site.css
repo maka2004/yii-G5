@@ -85,6 +85,10 @@ a.desc:after {
     justify-content: flex-end;
 }
 
+.errors span {
+    display: block;
+}
+
 @media(max-width:767px) {
     .nav li > form > button.logout {
         display:block;
