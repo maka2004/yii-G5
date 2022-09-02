@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\Client;
+use app\models\Shop;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 
@@ -17,16 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-
                     'id',
                     'name',
-                    [
-                        'attribute' => 'shop',
-                        'format'    => 'text',
-                        'content' => function ($model) {
-                            return Html::a(yii::t('app', $model->shop->name), ['shop/view', 'id' => $model->shop->id], ['data-pjax' => 0]) . ' ';
-                        },
-                    ],
                     [
                         'attribute' => 'sex',
                         'format'    => 'text',
@@ -38,15 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             }
                         },
                     ],
-                    [
-                        'attribute' => 'sex',
-                        'format' => 'text',
-                        'content' => function($model) {
-                            return $model->sex;
-                        },
-                        'filter' => ['1' => 'Male', '2' => 'Female'],
-                    ],
-                    'address',
                     'email',
                     'pin',
                     [
@@ -56,8 +41,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             return date('d-m-Y', $model->date_of_birth);
                         },
                     ],
+                    [
+                        'attribute' => 'shop',
+                        'format'    => 'text',
+                        'content' => function ($model) {
+                            return Html::a(yii::t('app', $model->shop->name), ['shop/view', 'id' => $model->shop->id], ['data-pjax' => 0]) . ' ';
+                        },
+                        'filter' => ArrayHelper::map(Shop::find()->all(), 'id', 'name'),
+                    ],
                     ['class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {atlas_log}',
+                        'template' => '{view}',
                         'buttons' => [
                             'view' => function ($url, $model, $key) {
                                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '/client/view?id=' . $model->id, [

@@ -18,7 +18,7 @@ class ClientSearch extends Client
     {
         return [
             [['id', 'date_of_birth', 'pin', 'shop_id'], 'integer'],
-            [['name'], 'string'],
+            [['email'], 'string'],
         ];
     }
 
@@ -45,7 +45,9 @@ class ClientSearch extends Client
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'date_of_birth' => $this->date_of_birth
+            'date_of_birth' => $this->date_of_birth,
+            'email' => $this->email,
+            'pin' => $this->pin,
         ]);
 
         return $dataProvider;
