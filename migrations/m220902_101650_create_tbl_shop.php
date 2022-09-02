@@ -21,7 +21,7 @@ class m220902_101650_create_tbl_shop extends Migration
             'id' => 'INT(11) PRIMARY KEY AUTO_INCREMENT',
             'name' => $this->string(20),
             'address' => $this->string(150),
-            'area' => $this->tinyInteger(1),
+            'area' => $this->integer(1),
             'phone' => $this->string(10)
         ]);
     }
