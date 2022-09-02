@@ -3,6 +3,7 @@
 namespace app\models;
 
 use yii\base\Model;
+use app\models\Shop;
 
 class Client extends Model
 {
@@ -17,7 +18,8 @@ class Client extends Model
             [['first_name', 'last_name', 'date_of_birth'], 'required'],
             [['first_name', 'last_name', 'middle_name'], 'string', 'max' => 20],
             [['date_of_birth'], 'integer'],
-//            ['from', 'compare', 'compareAttribute' => 'to', 'operator' => '<=', 'message' => 'From cannot be greater than To'],
+            ['sex', 'in', 'array' => [static::SEX_MALE, static::SEX_FEMALE]],
+            ['email', 'email']
         ];
     }
 
@@ -27,10 +29,28 @@ class Client extends Model
     public function attributeLabels()
     {
         return [
-            'from' => 'From',
-            'to' => 'To',
-            'counter' => 'Counter',
+            'name' => 'Name',
+            'date_of_birth' => 'Birth Date',
+            'pin' => 'PIN',
+            'sex' => 'Sex',
+            'email' => 'Email',
+            'shop' => 'Shop',
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getName(): string
+    {
+        return $this->firstName . ' ' . ($this->middleName) ? $this->middleName . ' ' : '' . $this->lastName;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getShop(): Shop
+    {
+        return $this->hasOne(Shop::className(), ['id' => 'shop_id']);
+    }
 }

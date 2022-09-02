@@ -25,6 +25,7 @@ class m220902_101655_create_tbl_client extends Migration
             'date_of_birth' => $this->integer(11)->notNull(),
             'pin' => $this->integer(11)->notNull(),
             'sex' => $this->tinyInteger(1)->notNull(),
+            'email' => $this->string(150),
             'shop_id' => $this->integer(11)->notNull()
         ]);
 
