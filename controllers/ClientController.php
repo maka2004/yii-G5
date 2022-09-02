@@ -4,7 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-//use app\models\LuckyNumber;
+use app\models\Client;
+use app\models\search\ClientSearch;
 
 class ClientController extends Controller
 {
@@ -15,9 +16,13 @@ class ClientController extends Controller
      */
     public function actionIndex()
     {
-//        die(Yii::$app->params['db_name']);
-//        echo getenv('DB_NAME'); die();
-        return json_encode(Yii::$app->params);
+        $searchModel = new ClientSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
 }

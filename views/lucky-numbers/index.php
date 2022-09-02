@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             Pjax::begin();
             echo Html::beginForm(Url::to(['lucky-numbers/index']), 'POST', ['data-pjax' => 0, 'name' => 'l-numbers']);
         ?>
-        <div class="table">
+        <div class="custom-table">
             <div class="float">
                 <?= Html::label('N - from', 'from'); ?>
                 <?= Html::activeInput(

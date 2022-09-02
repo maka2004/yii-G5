@@ -17,7 +17,7 @@ class m220902_101650_create_tbl_shop extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%shop}}', [
+        $this->createTable('shop', [
             'id' => 'INT(11) PRIMARY KEY AUTO_INCREMENT',
             'name' => $this->string(20),
             'address' => $this->string(150),
@@ -31,6 +31,6 @@ class m220902_101650_create_tbl_shop extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%shop}}');
+        $this->dropTable('shop');
     }
 }

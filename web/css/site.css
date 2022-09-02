@@ -65,21 +65,21 @@ a.desc:after {
 }
 
 /* Lucky Numbers */
-.table {
+.custom-table {
     display: flex;
     flex-direction: row;
     overflow: hidden;
 }
 
-.table .float:not(:last-child) {
+.custom-table .float:not(:last-child) {
     margin-right: 1rem;
 }
 
-.table .float label, .table .float input {
+.custom-table .float label, .custom-table .float input {
     display: block;
 }
 
-.table .float.submitter {
+.custom-table .float.submitter {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

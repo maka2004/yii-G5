@@ -17,7 +17,7 @@ class m220902_101655_create_tbl_client extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%client}}', [
+        $this->createTable('client', [
             'id' => 'INT(11) PRIMARY KEY AUTO_INCREMENT',
             'first_name' => $this->string(20)->notNull(),
             'last_name' => $this->string(20)->notNull(),
@@ -38,7 +38,7 @@ class m220902_101655_create_tbl_client extends Migration
             'CASCADE'
         );
 
-        $this->createIndex('idx-client-pin','{{%client}}','pin');
+        $this->createIndex('idx-client-pin','client','pin');
     }
 
     /**
@@ -46,10 +46,10 @@ class m220902_101655_create_tbl_client extends Migration
      */
     public function safeDown()
     {
-        $this->dropIndex('idx-client-pin', '{{%client}}');
+        $this->dropIndex('idx-client-pin', 'client');
 
-        $this->dropForeignKey('fk-shop-id','{{%client}}');
+        $this->dropForeignKey('fk-shop-id','client');
 
-        $this->dropTable('{{%client}}');
+        $this->dropTable('client');
     }
 }
