@@ -17,7 +17,7 @@ class ClientSearch extends Client
     {
         return [
             [['pin', 'sex', 'shop'], 'integer'],
-            [['date_of_birth', 'email'], 'string'],
+            [['name', 'date_of_birth', 'email'], 'string'],
         ];
     }
 
@@ -46,14 +46,17 @@ class ClientSearch extends Client
         $query->andFilterWhere(['like', 'pin', $this->pin]);
         $query->andFilterWhere(['like', 'email', $this->email]);
         $query->andFilterWhere(['shop_id' => $this->shop]);
+        $query->andFilterWhere(['or',
+            ['like', 'first_name', $this->name],
+            ['like', 'last_name', $this->name],
+            ['like', 'middle_name', $this->name]
+        ]);
 
         if ($this->date_of_birth) {
             $date_start = strtotime($this->date_of_birth . ' 00:00:00');
             $date_end = strtotime($this->date_of_birth . ' 23:59:59');
             $query->andWhere(['between', 'date_of_birth', $date_start, $date_end]);
         }
-
-//        die($query->createCommand()->getRawSql());
 
         return $dataProvider;
     }

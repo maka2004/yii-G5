@@ -61,6 +61,14 @@ class Client extends ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getShop()
     {
         return $this->hasOne(Shop::class, ['id' => 'shop_id']);
