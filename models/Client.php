@@ -3,7 +3,6 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
-//use yii\base\Model;
 use app\models\Shop;
 
 class Client extends ActiveRecord
@@ -65,5 +64,13 @@ class Client extends ActiveRecord
     public function getShop()
     {
         return $this->hasOne(Shop::class, ['id' => 'shop_id']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setShop($shop_id)
+    {
+        return $this->shop = $shop_id;
     }
 }

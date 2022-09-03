@@ -2,7 +2,6 @@
 
 namespace app\models\search;
 
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Client;
 
@@ -17,8 +16,8 @@ class ClientSearch extends Client
     public function rules()
     {
         return [
-            [['id', 'date_of_birth', 'pin', 'shop_id'], 'integer'],
-            [['email'], 'string'],
+            [['pin', 'sex', 'shop'], 'integer'],
+            [['date_of_birth', 'email'], 'string'],
         ];
     }
 
@@ -32,6 +31,7 @@ class ClientSearch extends Client
     public function search($params)
     {
         $query = Client::find();
+        $query->joinWith(['shop']);
 
         // add conditions that should always apply here
 
@@ -41,14 +41,19 @@ class ClientSearch extends Client
 
         if (!$this->validate()) return $dataProvider;
 
-
         // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'date_of_birth' => $this->date_of_birth,
-            'email' => $this->email,
-            'pin' => $this->pin,
-        ]);
+        $query->andFilterWhere(['sex' => $this->sex]);
+        $query->andFilterWhere(['like', 'pin', $this->pin]);
+        $query->andFilterWhere(['like', 'email', $this->email]);
+        $query->andFilterWhere(['shop_id' => $this->shop]);
+
+        if ($this->date_of_birth) {
+            $date_start = strtotime($this->date_of_birth . ' 00:00:00');
+            $date_end = strtotime($this->date_of_birth . ' 23:59:59');
+            $query->andWhere(['between', 'date_of_birth', $date_start, $date_end]);
+        }
+
+//        die($query->createCommand()->getRawSql());
 
         return $dataProvider;
     }

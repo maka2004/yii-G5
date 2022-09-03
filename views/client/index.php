@@ -27,16 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'content' => function ($model) {
                             if ($model->sex == Client::SEX_MALE) {
                                 return 'male';
-                            } elseif ($model->sex == Client::SEX_MALE) {
+                            } elseif ($model->sex == Client::SEX_FEMALE) {
                                 return 'female';
                             }
                         },
+                        'filter' => [Client::SEX_MALE => 'male', Client::SEX_FEMALE => 'female'],
                     ],
                     'email',
                     'pin',
                     [
                         'attribute' => 'date_of_birth',
-                        'format'    => 'text',
+                        'format' => ['date', 'php:d-m-Y'],
                         'content' => function ($model) {
                             return date('d-m-Y', $model->date_of_birth);
                         },
